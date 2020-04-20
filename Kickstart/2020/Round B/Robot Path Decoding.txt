@@ -1,0 +1,33 @@
+//Devang Sharma- MAIT DELHI
+
+#include<stdio.h>
+#include<string.h>
+#include<stack>
+#define MOD ((int)1e9)
+using namespace std;
+int main()
+{
+    int t;
+    scanf("%d",&t);
+    for(int z=1;z<=t;z++)
+    {
+        long long x=0,y=0;
+        char v[2005];
+        stack<long long> s;
+        scanf("%s",v);
+        s.push(1);
+        for(int i=0;i<strlen(v);i++)
+        {
+            if(v[i]=='(')
+            {
+                s.push((s.top()*(v[i-1]-'0'))%MOD);
+            }
+            else if(v[i]==')')s.pop();
+            else if(v[i]=='N')y=(y+MOD-s.top())%MOD;
+            else if(v[i]=='S')y=(y+s.top())%MOD;
+            else if(v[i]=='E')x=(x+s.top())%MOD;
+            else if(v[i]=='W')x=(x+MOD-s.top())%MOD;
+        }
+        printf("Case #%d: %lld %lld\n",z,x+1,y+1);
+    }
+}

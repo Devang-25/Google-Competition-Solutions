@@ -1,0 +1,32 @@
+//Devang Sharma- MAIT Delhi
+
+#include<bits/stdc++.h>
+#include<stdio.h>
+using namespace std;
+#define fast ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+#define ll long long 
+int main()
+{
+    ll t;
+    cin>>t;
+    
+    for(ll z=1;z<=t;z++)
+    {
+        ll n,arr[1005];
+        long long D;
+        cin>>n>>D;
+        
+        for(ll i=0;i<n;i++)
+        cin>>arr[i];
+        
+        ll c=n;
+        while(c>0)
+        {
+            c--;
+            D=D-(D%arr[c]);
+        }
+        
+        printf("Case #%d: %lld",z,D);
+        cout<<endl;
+    }
+}
