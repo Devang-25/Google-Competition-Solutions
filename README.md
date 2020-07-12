@@ -16,6 +16,7 @@
 Round A: 𝟐𝟔𝟕𝟐<br> 
 Round B: 𝟗𝟒𝟐<br> 
 Round C: 𝟏𝟖𝟔 (𝐌𝐚𝐝𝐞 𝐢𝐭 𝐭𝐨 𝐭𝐡𝐞 𝐄𝐋𝐈𝐓𝐄 𝐓𝐎𝐏 𝟏 𝐏𝐞𝐫𝐜𝐞𝐧𝐭𝐢𝐥𝐞 𝐆𝐫𝐨𝐮𝐩)<br> 
+Round D: 401<br> 
 
 ## Google Codejam 2020
 Qualification Round: 𝟓𝟏𝟓<br> 
