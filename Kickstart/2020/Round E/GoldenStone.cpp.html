@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1894.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">// Solved After Contest, Conflicting Client Meeting at Same Time</p>
+<p class="p1">// De oppresso Liber- Devang Sharma</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">#include &lt;bits/stdc++.h&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">using namespace std;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">static constexpr long MAX_COST = 1'000'000'000'000L;</p>
+<p class="p2"><br></p>
+<p class="p1">int N, M, S, R;</p>
+<p class="p2"><br></p>
+<p class="p1">vector&lt;int&gt; O, K;</p>
+<p class="p2"><br></p>
+<p class="p1">vector&lt;unordered_set&lt;int&gt;&gt; stones;</p>
+<p class="p2"><br></p>
+<p class="p1">vector&lt;unordered_set&lt;int&gt;&gt; where;</p>
+<p class="p2"><br></p>
+<p class="p1">vector&lt;vector&lt;int&gt;&gt; recipe;</p>
+<p class="p1">vector&lt;vector&lt;int&gt;&gt; recipe_by_size;</p>
+<p class="p2"><br></p>
+<p class="p1">vector&lt;vector&lt;int&gt;&gt; adj;</p>
+<p class="p2"><br></p>
+<p class="p1">vector&lt;vector&lt;long&gt;&gt; basic;</p>
+<p class="p2"><br></p>
+<p class="p1">long cost(int i, int u) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>long total = 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int s : recipe[i])</p>
+<p class="p1"><span class="Apple-converted-space">        </span>total += basic[s][u];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return total;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">void debug() {</p>
+<p class="p1"><span class="Apple-converted-space">   </span>// cout &lt;&lt; "\n\n";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int s = 0; s &lt; S; s++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (int u = 0; u &lt; N; u++) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>string str = basic[s][u] &gt;= 1000 ? "++"s : to_string(basic[s][u]);</p>
+<p class="p1"><span class="Apple-converted-space">         </span>// <span class="Apple-converted-space">  </span>cout &lt;&lt; setw(3) &lt;&lt; str &lt;&lt; ' ';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">     </span>// <span class="Apple-converted-space">  </span>cout &lt;&lt; '\n';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">//<span class="Apple-converted-space">    </span>cout &lt;&lt; "\n\n";</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">int compute_round(int size) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>bool changed;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int rounds = 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>do {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>changed = false;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (int i : recipe_by_size[size]) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (int u = 0; u &lt; N; u++) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>long c = cost(i, u);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (basic[O[i]][u] &gt; c) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>basic[O[i]][u] = c;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>changed = true;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">         </span>// <span class="Apple-converted-space">  </span>printf("after recipe %d\n", i);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>//<span class="Apple-converted-space">  </span>debug();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>rounds++;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} while (changed);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return rounds;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">auto solve() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cin &gt;&gt; N &gt;&gt; M &gt;&gt; S &gt;&gt; R;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>O.assign(R, 0);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>K.assign(R, 0);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>stones.assign(N, {});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>where.assign(S, {});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>recipe.assign(R, {});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>recipe_by_size.clear();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>adj.assign(N, {});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>basic.assign(S, vector&lt;long&gt;(N, MAX_COST));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int maxK = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int i = 0; i &lt; M; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int u, v;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cin &gt;&gt; u &gt;&gt; v, u--, v--;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>adj[u].push_back(v), adj[v].push_back(u);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int i = 0; i &lt; N; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int C, s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cin &gt;&gt; C;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (int j = 0; j &lt; C; j++) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cin &gt;&gt; s, s--;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>stones[i].insert(s);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>where[s].insert(i);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int i = 0; i &lt; R; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cin &gt;&gt; K[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>maxK = max(maxK, K[i]);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>recipe_by_size.resize(maxK + 1, {});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>recipe_by_size[K[i]].push_back(i);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (int j = 0; j &lt; K[i]; j++) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>int s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cin &gt;&gt; s, s--;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>recipe[i].push_back(s);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cin &gt;&gt; O[i], O[i]--;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int s = 0; s &lt; S; s++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>vector&lt;int&gt; bfs, next_bfs;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>vector&lt;bool&gt; vis(N, false);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (int u : where[s]) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bfs.push_back(u), vis[u] = true, basic[s][u] = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>int dist = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>while (!bfs.empty()) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>dist++;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (int u : bfs)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (int v : adj[u])</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (!vis[v])</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>next_bfs.push_back(v), vis[v] = true, basic[s][v] = dist;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bfs = move(next_bfs);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>next_bfs.clear();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>int rounds;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>do {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>rounds = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (int k = 1; k &lt;= maxK; k++) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>rounds += compute_round(k);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>debug();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>fprintf(stderr, "rounds: %d\n", rounds);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} while (rounds &gt; maxK);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>long min = *min_element(begin(basic[0]), end(basic[0]));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return min &lt; MAX_COST ? min : -1;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">int main()<span class="Apple-converted-space"> </span></p>
+<p class="p1">{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>//author: @Devang Sharma</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>unsigned T;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cin &gt;&gt; T &gt;&gt; ws;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (unsigned t = 1; t &lt;= T; ++t) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>auto solution = solve();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cout &lt;&lt; "Case #" &lt;&lt; t &lt;&lt; ": " &lt;&lt; solution &lt;&lt; '\n';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return 0;</p>
+<p class="p1">}</p>
+</body>
+</html>

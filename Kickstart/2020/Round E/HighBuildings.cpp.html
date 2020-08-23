@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1894.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">// Solved After Contest, Conflicting Client Meeting at Same Time</p>
+<p class="p1">// De oppresso Liber- Devang Sharma</p>
+<p class="p2"><br></p>
+<p class="p1">#include &lt;algorithm&gt;</p>
+<p class="p1">#include &lt;iomanip&gt;</p>
+<p class="p1">#include &lt;iostream&gt;</p>
+<p class="p1">#include &lt;map&gt;</p>
+<p class="p1">#include &lt;string&gt;</p>
+<p class="p1">#include &lt;vector&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">using namespace std;</p>
+<p class="p1">#define endl "\n"</p>
+<p class="p1">#define fast <span class="Apple-converted-space">              </span>\</p>
+<p class="p1"><span class="Apple-converted-space">  </span>ios::sync_with_stdio(0); \</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cin.tie(0);<span class="Apple-converted-space">              </span>\</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cout.tie(0)</p>
+<p class="p2"><br></p>
+<p class="p1">void slove() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>int a, b, c, n;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cin &gt;&gt; n &gt;&gt; a &gt;&gt; b &gt;&gt; c;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (a + b - c &gt; n) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cout &lt;&lt; "IMPOSSIBLE" &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int other = n - (a + b - c);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int aa = a - c;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>int bb = b - c;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>vector&lt;int&gt; output;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (n == 2 &amp;&amp; a == 1 &amp;&amp; b == 1) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cout &lt;&lt; "IMPOSSIBLE" &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else if (n == 1) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cout &lt;&lt; 1 &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else if (n == 2) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (a == 2 &amp;&amp; b == 2 &amp;&amp; c == 2) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cout &lt;&lt; 1 &lt;&lt; ' ' &lt;&lt; 1 &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else if (a == 2 &amp;&amp; c == 1 &amp;&amp; b == 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cout &lt;&lt; 1 &lt;&lt; ' ' &lt;&lt; 2 &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else if (a == 1 &amp;&amp; c == 1 &amp;&amp; b == 2) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cout &lt;&lt; 2 &lt;&lt; " " &lt;&lt; 1 &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cout &lt;&lt; "IMPOSSIBLE" &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (max(max(a, b), c) == 1) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cout &lt;&lt; "IMPOSSIBLE" &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>while (aa--) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>output.push_back(2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>while (c--) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>output.push_back(3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>while (bb--) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>output.push_back(2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (int i = 0; i &lt; output.size(); i++) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cout &lt;&lt; output[i] &lt;&lt; ' ';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (i == 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>while (other--) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>cout &lt;&lt; 1 &lt;&lt; " ";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>cout &lt;&lt; endl;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">int main() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>fast;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>int t;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cin &gt;&gt; t;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (int i = 1; i &lt;= t; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cout &lt;&lt; "Case #" &lt;&lt; i &lt;&lt; ": ";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>slove();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+</body>
+</html>
